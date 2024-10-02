@@ -80,7 +80,7 @@ function addTeamRow(team, tbodyElem) {
 function startTimer() {
     const timerOutputElem = document.getElementById("timer-output");
 
-    let timeLimit = 3;
+    let timeLimit = 60;
     const timer = setInterval(function () {
         timerOutputElem.innerText = timeLimit + " seconds remaining";
         timeLimit--;
