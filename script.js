@@ -80,12 +80,15 @@ function addTeamRow(team, tbodyElem) {
 function startTimer() {
     const timerOutputElem = document.getElementById("timer-output");
 
-    let timeLimit = 60;
+    let timeLimit = 30;
     const timer = setInterval(function () {
         timerOutputElem.innerText = timeLimit + " seconds remaining";
         timeLimit--;
         console.log(timeLimit);
-        if(timeLimit === 0){
+        if(timeLimit <= 10){// timer color changes to red near end
+            timerOutputElem.style.color= "red"
+        }
+        if(timeLimit === 0){// call stopAnsewrs when timer reach 0 to stop
             stopAnswers();
             clearInterval(timer);
         }
@@ -94,5 +97,5 @@ function startTimer() {
 function stopAnswers() { // hides the team input whene the timer stops
     alert("time is up, no more answers");
     document.getElementById("teamInput").style.visibility = "hidden";
-    setTimeout(1000)
+    document.getElementById("timer-output").innerHTML="Timer Ended"
 }
