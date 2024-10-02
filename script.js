@@ -42,36 +42,57 @@ const teamInputElem = document.getElementById("teamInput");
 const wonTableBody = document.getElementById("wonTableBody");
 const neverWonTableBody = document.getElementById("neverWonTableBody");
 
-teamInputElem.addEventListener("keyup", function (e){
-    if(e.key === "Enter"){
+teamInputElem.addEventListener("keyup", function (e) {
+    if (e.key === "Enter") {
         const team = teamInputElem.value;
         console.log(team)
-        
-    // if the team exists in "won" add to 1st table
-        if (nbaTeams.won.hasOwnProperty(team)){
-            addTeamRow(team,wonTableBody)
-            
-    
-        // if the team exists in "neverWon" add to 2nd table
-        }else if(nbaTeams.neverWon.includes(team)){
-            addTeamRow(team,neverWonTableBody)
+
+        // if the team exists in "won" add to 1st table
+        if (nbaTeams.won.hasOwnProperty(team)) {
+            addTeamRow(team, wonTableBody)
+
+
+            // if the team exists in "neverWon" add to 2nd table
+        } else if (nbaTeams.neverWon.includes(team)) {
+            addTeamRow(team, neverWonTableBody)
         }
 
-        
-    // if neither don't add
-    else{
-        alert(`${team} is not in the NBA`);
+
+        // if neither don't add
+        else {
+            alert(`${team} is not in the NBA`);
+        }
     }
-}
 });
 
 
-function addTeamRow(team, tbodyElem){
+function addTeamRow(team, tbodyElem) {
     console.log(`we will add ${team} to ${tbodyElem}`)
     const row = tbodyElem.insertRow();
-    row.insertCell(0).innerText=team;
+    row.insertCell(0).innerText = team;
     // check if the team has never won, then add the years
-    if(nbaTeams.neverWon.indexOf(team) === -1){
-        row.insertCell(1).innerText= nbaTeams.won[team].join(", ")
+    if (nbaTeams.neverWon.indexOf(team) === -1) {
+        row.insertCell(1).innerText = nbaTeams.won[team].join(", ")
     }
+}
+
+// extra credit 
+function startTimer() {
+    const timerOutputElem = document.getElementById("timer-output");
+
+    let timeLimit = 3;
+    const timer = setInterval(function () {
+        timerOutputElem.innerText = timeLimit + " seconds remaining";
+        timeLimit--;
+        console.log(timeLimit);
+        if(timeLimit === 0){
+            stopAnswers();
+            clearInterval(timer);
+        }
+    }, 1000);// 1 sec interval
+}
+function stopAnswers() { // hides the team input whene the timer stops
+    alert("time is up, no more answers");
+    document.getElementById("teamInput").style.visibility = "hidden";
+    setTimeout(1000)
 }
